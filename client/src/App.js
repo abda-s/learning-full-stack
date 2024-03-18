@@ -10,8 +10,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Link to="/createpost">create a post</Link>
-        <Link to="/">home page</Link>
+        <div className="navbar">
+          <Link to="/"> Home Page</Link>
+          <Link to="/createpost"> Create A Post</Link>
+        </div>
         <Routes>
           <Route path="/" exact Component={Home} />
           <Route path="/createpost" exact Component={CreatePost} />
