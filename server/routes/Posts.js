@@ -14,6 +14,21 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.get("/byId/:id", async (req, res) => {
+    try {
+        
+        const id = req.params.id
+        const post = await posts.findByPk(id)
+        res.json(post) 
+
+    } catch (err) {
+        console.error("Error with res:", error);
+        res.status(500).json({ error: "Failed to respond" });
+    }
+})
+
+
+
 router.post("/", async (req, res) => {
     try {
         const post = req.body;
