@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     })
     posts.associate = (models) => {
-        posts.hasMany(models.Comments, { // add an association between the posts table and the comments table 
+        posts.hasMany(models.comments, { // add an association between the posts table and the comments table 
             onDelete : "cascade" // when a post is deleted it will delete every comment associated with it  
         })
     }
