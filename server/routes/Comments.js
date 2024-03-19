@@ -15,5 +15,15 @@ router.get("/:postId", async (req, res) => {
     }
 })
 
+router.post("/", async (req, res) => {
+    try {
+        const comment = req.body;
+        await comments.create(comment);
+        res.json(comment);
+    } catch (error) {
+        console.error("Error creating post:", error);
+        res.status(500).json({ error: "Failed to create post" });
+    }
+});
 
 module.exports = router
