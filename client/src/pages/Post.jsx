@@ -24,11 +24,21 @@ function Post() {
             .post("http://localhost:3001/comments", {
                 commentBody: newComment,
                 postId: id,
-            })
+            }, {
+                headers: {
+                  accessToken: sessionStorage.getItem("accessToken"),
+                },
+              }
+            )
             .then((response) => {
-                const commentToAdd = { commentBody: newComment };
-                setComments([...comments, commentToAdd]);
-                setNewComment("");
+                if(response.data.error){
+                    alert("log in u muther fucker")
+                }else{
+                    const commentToAdd = { commentBody: newComment };
+                    setComments([...comments, commentToAdd]);
+                    setNewComment("");
+                }
+
             });
     };
 

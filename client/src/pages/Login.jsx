@@ -12,8 +12,9 @@ function Login() {
       console.log(response.data);
       if(response.data.error){
         setError(response.data.error);
+      }else{
+        sessionStorage.setItem("accessToken",response.data)
       }
-      sessionStorage.setItem("accessToken",response.data)
     }).catch((error) => {
       if (error.response && error.response.data && error.response.data.error) {
         // Server responded with an error message
