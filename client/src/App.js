@@ -20,9 +20,9 @@ function App() {
           <Link to="/registration"> Registration</Link>
         </div>
         <Routes>
-          <Route path="/" exact element={Home} />
-          <Route path="/createpost" exact element={CreatePost} />
-          <Route path="/post/:id" exact element={Post} />
+          <Route path="/" exact element={<Home />} />
+          <Route path="/createpost" exact element={<CreatePost />} />
+          <Route path="/post/:id" exact element={<Post />} />
           <Route path="/registration" exact element={<Registration />} />
           <Route path="/login" exact element={<Login />} />
         </Routes>
