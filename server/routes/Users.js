@@ -30,12 +30,12 @@ router.post("/login", async (req, res) => {
         const user = await users.findOne({ where: { username: username } });
 
         if (!user) {
-            return res.status(400).json({ "error": "The user does not exist" });
+            return res.json({ "error": "The user does not exist" });
         }
 
         bcrypt.compare(password, user.password).then((match) => {
             if (!match) {
-                return res.status(400).json({ "error": "Wrong password" });
+                return res.json({ "error": "Wrong password" });
             }
             const accessToken = sign({ username: user.username, id: user.id }, "theJWTsecret")
             res.json(accessToken)
