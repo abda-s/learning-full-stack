@@ -4,6 +4,7 @@ const { users } = require("../models")
 
 const bcrypt = require("bcrypt")
 
+const { sign } = require("jsonwebtoken")
 router.post("/", async (req, res) => {
     try {
         const { username, password } = req.body
@@ -36,8 +37,9 @@ router.post("/login", async (req, res) => {
             if (!match) {
                 return res.status(400).json({ "error": "Wrong password" });
             }
-
-            res.json("You have successfully logged in");
+            const accessToken = sign({ username: user.username, id: user.id }, "theJWTsecret")
+            res.json(accessToken)
+            console.log("You have successfully logged in");
         });
     } catch (error) {
         console.error("Error when trying to log in:", error);
