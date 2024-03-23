@@ -120,6 +120,13 @@ span {
   text-decoration: none;
   color: white;
 }
+.navbar button {
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: white;
+}
 
 /* INDIVIDUAL POST */
 .postPage {
