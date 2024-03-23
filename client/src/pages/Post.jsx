@@ -34,7 +34,7 @@ function Post() {
                 if(response.data.error){
                     alert("log in u muther fucker")
                 }else{
-                    const commentToAdd = { commentBody: newComment };
+                    const commentToAdd = { commentBody: newComment, username:response.data.username };
                     setComments([...comments, commentToAdd]);
                     setNewComment("");
                 }
@@ -70,6 +70,7 @@ function Post() {
                         return (
                             <div key={key} className="comment">
                                 {comment.commentBody}
+                                <label> User: { comment.username }</label>
                             </div>
                         );
                     })}
