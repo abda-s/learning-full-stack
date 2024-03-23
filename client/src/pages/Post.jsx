@@ -52,7 +52,7 @@ function Post() {
                     <div className="footer">{postObject.username}</div>
                 </div>
             </div>
-            <div className="rightSide">
+            <div className="rightSide"> 
                 <div className="addCommentContainer">
                     <input
                         type="text"

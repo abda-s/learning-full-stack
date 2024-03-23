@@ -5,6 +5,8 @@ const { users } = require("../models")
 const bcrypt = require("bcrypt")
 
 const { sign } = require("jsonwebtoken")
+
+const {validateToken} = require("../middlewares/AuthMiddlewares")
 router.post("/", async (req, res) => {
     try {
         const { username, password } = req.body
@@ -47,4 +49,8 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/auth", validateToken, (req, res) => {
+    res.json(req.user);
+  });
+  
 module.exports = router
