@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  let navigate = useNavigate();
 
   const login = () => {
+
     const data = { username: username, password: password };
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       console.log(response.data);
       if(response.data.error){
         setError(response.data.error);
       }else{
-        sessionStorage.setItem("accessToken",response.data)
+        localStorage.setItem("accessToken",response.data)
+        navigate(`/`)
       }
+
+
     }).catch((error) => {
       if (error.response && error.response.data && error.response.data.error) {
         // Server responded with an error message

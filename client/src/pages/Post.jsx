@@ -26,7 +26,7 @@ function Post() {
                 postId: id,
             }, {
                 headers: {
-                  accessToken: sessionStorage.getItem("accessToken"),
+                  accessToken: localStorage.getItem("accessToken"),
                 },
               }
             )
