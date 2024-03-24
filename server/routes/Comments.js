@@ -7,8 +7,8 @@ const { validateToken } = require("../middlewares/AuthMiddlewares");
 router.get("/:postId", async (req, res) => {
     try {
         const postId = req.params.postId // get the post id from the params in the url
-        const Comments = await comments.findAll({where:{PostId:postId}}) // go to the comments table and where the id is postId return all the elments
-        res.json(Comments) 
+        const Comments = await comments.findAll({ where: { PostId: postId } }) // go to the comments table and where the id is postId return all the elments
+        res.json(Comments)
 
     } catch (err) {
         console.error("Error with res:", error);
@@ -16,7 +16,7 @@ router.get("/:postId", async (req, res) => {
     }
 })
 
-router.post("/",validateToken, async (req, res) => {
+router.post("/", validateToken, async (req, res) => {
     try {
         const comment = req.body;
         const username = req.user.username
@@ -28,5 +28,13 @@ router.post("/",validateToken, async (req, res) => {
         res.status(500).json({ error: "Failed to create post" });
     }
 });
+
+router.delete("/:commentId", validateToken, async (req, res) => {
+    const commentId = req.params.commentId;
+
+    await comments.destroy({ where: { id: commentId } })
+
+    res.json({"res":"deleted"})
+})
 
 module.exports = router

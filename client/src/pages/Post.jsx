@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from "react-router-dom"
 import ax from 'axios';
+import { AuthContext } from "../helpers/AuthContext";
 
 function Post() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const { authState } = useContext(AuthContext);
 
     let { id } = useParams();
 
@@ -26,15 +28,15 @@ function Post() {
                 postId: id,
             }, {
                 headers: {
-                  accessToken: localStorage.getItem("accessToken"),
+                    accessToken: localStorage.getItem("accessToken"),
                 },
-              }
+            }
             )
             .then((response) => {
-                if(response.data.error){
+                if (response.data.error) {
                     alert("log in u muther fucker")
-                }else{
-                    const commentToAdd = { commentBody: newComment, username:response.data.username };
+                } else {
+                    const commentToAdd = { commentBody: newComment, username: response.data.username };
                     setComments([...comments, commentToAdd]);
                     setNewComment("");
                 }
@@ -42,6 +44,17 @@ function Post() {
             });
     };
 
+    const deleteComment = (id) => {
+        console.log(id)
+        ax.delete(`http://localhost:3001/comments/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } })
+            .then(
+                setComments(comments.filter((val) => {
+                    return val.id != id
+                })))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <div className="postPage">
@@ -52,7 +65,7 @@ function Post() {
                     <div className="footer">{postObject.username}</div>
                 </div>
             </div>
-            <div className="rightSide"> 
+            <div className="rightSide">
                 <div className="addCommentContainer">
                     <input
                         type="text"
@@ -70,7 +83,8 @@ function Post() {
                         return (
                             <div key={key} className="comment">
                                 {comment.commentBody}
-                                <label> User: { comment.username }</label>
+                                <label> User: {comment.username}</label>
+                                {authState.username == comment.username && <button onClick={() => { deleteComment(comment.id); }} >X</button>}
                             </div>
                         );
                     })}
